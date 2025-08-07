@@ -1,10 +1,12 @@
 #include <iostream>
 #include <iomanip>
+#include <random>
 #include <sstream>
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
 
 #include "global.hpp"
+#include "body.hpp"
 
 int main() {
 
@@ -38,6 +40,21 @@ int main() {
     int frameCounter = 0;
     const int updateRate = 72;
 
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(0.0, 1.0);
+
+    int n = 1000;
+    std::vector<Body> bodies;
+    for (int i = 0; i < n; i++) {
+
+        float randomX = WIDTH * dis(gen);
+        float randomY = HEIGHT * dis(gen);
+
+        bodies.emplace_back(Body({randomX, randomY}, 1));
+
+    }
+
     while (window.isOpen()) {
 
         float dt = clock.restart().asSeconds();
@@ -66,10 +83,16 @@ int main() {
 
         }
 
+        for (auto& body : bodies)
+            body.update(dt, bodies);
+
         window.clear(sf::Color(20, 20, 20));
             
             window.draw(fpsText);
             window.draw(deltaTimeText);
+
+            for (auto& body : bodies)
+                body.render(&window);
 
         window.display();
     }
