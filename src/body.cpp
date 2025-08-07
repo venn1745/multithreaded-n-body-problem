@@ -34,7 +34,7 @@ sf::Vector2f Body::getGravity(const std::vector<Body>& bodies) {
         float G = 100;
         sf::Vector2f dir = other.pos - pos;
         float distSquared = dir.lengthSquared();
-        if (distSquared < 5000) continue;
+        if (distSquared < 100) continue;
         
         float mag = G / distSquared;
         force += dir * mag;
