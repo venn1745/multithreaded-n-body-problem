@@ -17,12 +17,11 @@ int main() {
     settings.antiAliasingLevel = 8;
     sf::RenderWindow window(
         sf::VideoMode({WIDTH, HEIGHT}),
-        "sfml project template", 
+        "multithreaded n body problem", 
         sf::Style::Default, 
         sf::State::Windowed,
         settings
     );
-    window.setVerticalSyncEnabled(true);
 
     const sf::Font font("fonts/Consolas.ttf");
 
